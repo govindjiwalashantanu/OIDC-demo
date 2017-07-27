@@ -104,7 +104,10 @@ function RegistrationController ($window, $http, $location, $scope, widgetManage
             then(
                 function(res){
                     alert ("User successfully created!");
-                    $location.path("/login");
+                    $scope.$apply(function() {
+                        $location.path("/login");
+                        console.log($location.path());
+                    });
                 }, 
                 function(res){
                     alert(res);
@@ -118,9 +121,10 @@ LoginController.$inject = ["$window", "$location", "$scope", "widgetManager"];
 function LoginController($window, $location, $scope, widgetManager) {
 	widgetManager.checkSession()
 	.then(function(loggedIn) {
-		$window.localStorage.clear();
-		$scope = $scope.$new(true);
-        // $location.path("/login");
+		$scope.$apply(function() {
+            $location.path("/");
+            console.log($location.path());
+        });
 	});
 }
 
@@ -133,7 +137,10 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
 	var accessToken = angular.isDefined($window.localStorage["accessToken"]) ? JSON.parse($window.localStorage["accessToken"]) : undefined;
 	// Redirect if there is no token
 	if (angular.isUndefined(token)) {
-		$location.path("/login");
+		$scope.$apply(function() {
+                $location.path("/login");
+                console.log($location.path());
+            });
 	}else{
         $scope.session = true;
         $scope.token = token;
