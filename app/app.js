@@ -121,10 +121,8 @@ LoginController.$inject = ["$window", "$location", "$scope", "widgetManager", "$
 function LoginController($window, $location, $scope, widgetManager, $rootScope) {
 	widgetManager.checkSession()
 	.then(function(loggedIn) {
-		$rootScope.$apply(function() {
-            $location.path("/");
-            console.log($location.path());
-        });
+		$location.path("/");
+        console.log($location.path());
 	});
 }
 
