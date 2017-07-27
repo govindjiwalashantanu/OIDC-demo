@@ -117,8 +117,8 @@ function RegistrationController ($window, $http, $location, $scope, widgetManage
 }
 
 // Renders login view if session does not exist
-LoginController.$inject = ["$window", "$location", "$scope", "widgetManager"];
-function LoginController($window, $location, $scope, widgetManager) {
+LoginController.$inject = ["$window", "$location", "$scope", "widgetManager", "rootScope"];
+function LoginController($window, $location, $scope, widgetManager, rootScope) {
 	widgetManager.checkSession()
 	.then(function(loggedIn) {
 		$rootScope.$apply(function() {
