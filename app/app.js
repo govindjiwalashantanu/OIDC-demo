@@ -15,15 +15,10 @@ app.config(function ($routeProvider) {
         templateUrl: "views/register.html",
         controller: "RegistrationController"
     })
-    .when("/home",{
-        templateUrl: "views/home.html",
-        controller: "HomeController"
-    })
 	.otherwise({redirectTo: "/"});
 });
 
 // Set up controllers
-app.controller("HomeController", HomeController);
 app.controller("LoginController", LoginController);
 app.controller("RegistrationController", RegistrationController);
 app.controller("DashboardController", DashboardController);
@@ -74,17 +69,17 @@ app.directive("myWidget",
 });
 
 //renders registration view
-RegistrationController.$inject = ["$window", "$http", "$location", "$scope", "widgetManager"];
-function RegistrationController ($window, $http, $location, $scope, widgetManager){
+RegistrationController.$inject = ["$window", "$http", "$location", "$scope", "widgetManager", "ORG_URL", "API_KEY"];
+function RegistrationController ($window, $http, $location, $scope, widgetManager, ORG_URL, API_KEY){
     $scope.createUser = function(){
         //alert($scope.fname + $scope.lname + $scope.email + $scope.password);
         var req = {
          method: 'POST',
-         url: 'https://shantanu.okta.com/api/v1/users?activate=true',
+         url: ORG_URL+'api/v1/users?activate=true',
          headers: {
            'Accept': "application/json",
              'Content-Type' : "application/json",
-             'Authorization' : "SSWS 00CjJWW4fL2ax9ggRb_eHnl-v5cCNH3u5KbL_m_DWd" 
+             'Authorization' : "SSWS "+API_KEY 
          },
          data: {
              profile : {
@@ -116,78 +111,6 @@ function RegistrationController ($window, $http, $location, $scope, widgetManage
                 }
         );
     }
-}
-
-//	Renders Home view
-HomeController.$inject = ["$scope", "$window", "$location", "widgetManager"];
-function HomeController($scope, $window, $location, widgetManager) {
-	
-	// Get idToken from LocalStorage
-	var token = angular.isDefined($window.localStorage["idToken"]) ? JSON.parse($window.localStorage["idToken"]) : undefined;
-	
-	var accessToken = angular.isDefined($window.localStorage["accessToken"]) ? JSON.parse($window.localStorage["accessToken"]) : undefined;
-	// Redirect if there is no token
-	if (angular.isUndefined(token)) {
-		$location.path("/login");
-	}
-
-	$scope.session = true;
-	$scope.token = token;
-	$scope.accessToken = accessToken;
-
-	// Refreshes the current session if active	
-	$scope.refreshSession = function() {
-		widgetManager.refreshSession()
-		.then(function(success) {
-			// Show session object
-			$scope.sessionObject = success;
-		}, function(err) {
-			// Error
-		});
-	};
-
-	// Closes the current live session
-	$scope.closeSession = function() {
-		widgetManager.closeSession()
-		.then(function(success) {
-			$scope.session = undefined;
-		}, function(err) {
-			// Error
-		});
-	};
-
-	// Renews the current idToken
-	$scope.renewIdToken = function() {
-		widgetManager.renewIdToken(token.idToken)
-		.then(function(success) {
-			// Update local storage and token value
-			$window.localStorage["idToken"] = angular.toJson(
-				{
-			        "idToken" : success.idToken,
-			        "claims" : success.claims
-			     });
-			$scope.token = success;
-		}, function(error) {
-			// Error
-		});
-	}
-
-	//	Clears the localStorage saved in the web browser and scope variables
-	function clearStorage() {
-		$window.localStorage.clear();
-		$scope = $scope.$new(true);
-	}
-
-	//	Signout of organization
-	$scope.signout = function() {
-		widgetManager.logoutWidget()
-		.then(function(success) {
-			clearStorage();
-			$location.path("/login");
-		}, function(err) {
-			// Error
-		});
-	};
 }
 
 // Renders login view if session does not exist
