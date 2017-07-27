@@ -4,7 +4,7 @@ angular
     options : {
 	      baseUrl: "https://shantanu.okta.com",
         clientId: "0oa360fz6nuqAqcLY1t7",
-        redirectUri: "http://localhost:3000",
+        redirectUri: "https://demo-oidc.herokuapp.com",
         features: {
             rememberMe: true,
             smsRecovery: true,
