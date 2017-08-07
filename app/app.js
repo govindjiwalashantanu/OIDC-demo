@@ -127,8 +127,8 @@ function LoginController($window, $location, $scope, widgetManager, $rootScope) 
 }
 
 // Renders dashboard view if session exists
-DashboardController.$inject = ["$window", "$http", "$location", "$scope", "widgetManager","ORG_URL","API_KEY"];
-function DashboardController($window,$http, $location, $scope, widgetManager, ORG_URL, API_KEY) {
+DashboardController.$inject = ["$window", "$http", "$location", "$scope", "widgetManager","ORG_URL","API_KEY","AUTH_SERVER_URL"];
+function DashboardController($window,$http, $location, $scope, widgetManager, ORG_URL, API_KEY, AUTH_SERVER_URL) {
 	// Get idToken from LocalStorage
 	var token = angular.isDefined($window.localStorage["idToken"]) ? JSON.parse($window.localStorage["idToken"]) : undefined;
 	
@@ -145,7 +145,7 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
         $scope.getUserInfo = function(){
             var req = {
              method: 'POST',
-             url: ORG_URL+'v1/userinfo',
+             url: "AUTH_SERVER_URL"+'v1/userinfo',
              headers: {
                'Accept': "application/json",
                'Authorization' : "Bearer" + $scope.accessToken.accessToken
