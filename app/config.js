@@ -24,6 +24,12 @@ angular
       		      "address",
       		      "phone"
     	      ]
-  	    }
+  	    },
+      idps: [
+        {
+          type: 'FACEBOOK',
+          id: '0oa374zfljip7G3uR1t7'
+        }
+      ]
     }
 });
