@@ -40,6 +40,7 @@ app.directive("myWidget",
 			link: function(scope, element, attr) {
 				var button = element.children()[0];
 				angular.element(button).on("click", function() {
+                    scope.widget.remove();
 					scope.$apply(function() {
 						scope.widget = true;
 					});

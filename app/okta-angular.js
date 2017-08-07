@@ -44,6 +44,9 @@ angular
                 });
             return deferred.promise;
         },
+        removeWidget: function(){
+            widget.remove();
+        },
         refreshSession : function(){
         	var deferred = $q.defer();
         	widget.session.refresh(function(res) {
