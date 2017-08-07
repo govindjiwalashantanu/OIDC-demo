@@ -191,6 +191,7 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
        
         //	Clears the localStorage saved in the web browser and scope variables
         function clearStorage() {
+            widgetManager.removeWidget();
             $window.localStorage.clear();
             $scope = $scope.$new(true);
         }
