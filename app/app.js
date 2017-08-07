@@ -137,7 +137,6 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
 	if (angular.isUndefined(token)) {
 	    $location.path("/login");
         console.log($location.path());
-        widgetManager.removeWidget();
 	}else{
         $scope.session = true;
         $scope.token = token;
