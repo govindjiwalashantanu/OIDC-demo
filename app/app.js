@@ -135,9 +135,9 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
 	var accessToken = angular.isDefined($window.localStorage["accessToken"]) ? JSON.parse($window.localStorage["accessToken"]) : undefined;
 	// Redirect if there is no token
 	if (angular.isUndefined(token)) {
-        widgetManager.removeWidget();
 	    $location.path("/login");
         console.log($location.path());
+        widgetManager.removeWidget();
 	}else{
         $scope.session = true;
         $scope.token = token;
