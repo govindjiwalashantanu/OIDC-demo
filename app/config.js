@@ -14,7 +14,7 @@ angular
         logo: 'images/LOGO.png',
   	    authScheme: "OAUTH2",
   	    authParams: {
-            display:"popup",
+            display:'popup',
     	      responseType: ["id_token", "token"],
     	      responseMode: "okta_post_message",
     	      scopes : [
