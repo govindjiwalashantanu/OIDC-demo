@@ -145,7 +145,7 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
         $scope.getUserInfo = function(){
             var req = {
              method: 'POST',
-             url: "AUTH_SERVER_URL"+'v1/userinfo',
+             url: AUTH_SERVER_URL+'v1/userinfo',
              headers: {
                'Accept': "application/json",
                'Authorization' : "Bearer" + $scope.accessToken.accessToken
