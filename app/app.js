@@ -9,11 +9,6 @@ app.config(function ($routeProvider) {
 	.when("/login", {
 		templateUrl: "views/login.html",
 		controller: "LoginController"
-
-	}).when("/#/login", {
-		templateUrl: "views/login.html",
-		controller: "LoginController"
-
 	})
     .when("/register", {
         templateUrl: "views/register.html",
@@ -129,10 +124,12 @@ function RegistrationController ($window, $http, $location, $scope, widgetManage
 // Renders login view if session does not exist
 LoginController.$inject = ["$window", "$location", "$scope", "widgetManager", "$rootScope"];
 function LoginController($window, $location, $scope, widgetManager, $rootScope) {
+
 	widgetManager.checkSession()
 	.then(function(loggedIn) {
-		$location.path("/");
-        console.log($location.path());
+		if(loggedIn)$location.path("/");
+		else widgetManager.removeWidget();
+    //console.log($location.path());
 	});
 }
 
