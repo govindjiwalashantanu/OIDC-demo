@@ -59,10 +59,10 @@ app.directive("myWidget",
 								});
 							}
 						});
-						
+
 					}, function(error) {
 						console.error(error);
-					});				
+					});
 				});
 			}
 		}
@@ -79,14 +79,14 @@ function RegistrationController ($window, $http, $location, $scope, widgetManage
          headers: {
            'Accept': "application/json",
              'Content-Type' : "application/json",
-             'Authorization' : "SSWS "+API_KEY 
+             'Authorization' : "SSWS "+API_KEY
          },
          data: {
              profile : {
                 firstName : $scope.fname,
                  lastName : $scope.lname,
                  email : $scope.email,
-                 login : $scope.email                 
+                 login : $scope.email
              },
              credentials : {
                     password : {
@@ -108,7 +108,7 @@ function RegistrationController ($window, $http, $location, $scope, widgetManage
                         $location.path("/login");
                         console.log($location.path());
                     });
-                }, 
+                },
                 function(res){
                     alert(res);
                 }
@@ -131,7 +131,7 @@ DashboardController.$inject = ["$window", "$http", "$location", "$scope", "widge
 function DashboardController($window,$http, $location, $scope, widgetManager, ORG_URL, API_KEY, AUTH_SERVER_URL) {
 	// Get idToken from LocalStorage
 	var token = angular.isDefined($window.localStorage["idToken"]) ? JSON.parse($window.localStorage["idToken"]) : undefined;
-	
+
 	var accessToken = angular.isDefined($window.localStorage["accessToken"]) ? JSON.parse($window.localStorage["accessToken"]) : undefined;
 	// Redirect if there is no token
 	if (angular.isUndefined(token)) {
@@ -158,7 +158,7 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
                     function(res){
                         $scope.user = res.data;
                         $scope.listUserApps();
-                    }, 
+                    },
                     function(res){
                         alert(res);
                     }
@@ -180,7 +180,7 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
                 then(
                     function(res){
                         $scope.userApps = res.data;
-                    }, 
+                    },
                     function(res){
                         alert(res);
                     }
@@ -188,28 +188,26 @@ function DashboardController($window,$http, $location, $scope, widgetManager, OR
         }
 
 	   $scope.getUserInfo();
-       
+
         //	Clears the localStorage saved in the web browser and scope variables
         function clearStorage() {
             $window.localStorage.clear();
             $scope = $scope.$new(true);
         }
-        
+
         //	Signout of organization
         $scope.signout = function() {
             widgetManager.logoutWidget()
             .then(function(success) {
                 clearStorage();
+								widgetManager.removeWidget();
                 $location.path("/login");
+
             }, function(err) {
                 // Error
             });
 	};
     }
-    
+
 
 }
-
-
-
-
