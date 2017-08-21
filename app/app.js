@@ -124,11 +124,10 @@ function RegistrationController ($window, $http, $location, $scope, widgetManage
 // Renders login view if session does not exist
 LoginController.$inject = ["$window", "$location", "$scope", "widgetManager", "$rootScope"];
 function LoginController($window, $location, $scope, widgetManager, $rootScope) {
-
+	widgetManager.removeWidget();
 	widgetManager.checkSession()
 	.then(function(loggedIn) {
-		if(loggedIn)$location.path("/");
-		else widgetManager.removeWidget();
+		$location.path("/");
     //console.log($location.path());
 	});
 }
