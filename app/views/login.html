@@ -16,17 +16,6 @@ body {
     padding: 10px;
 }
 </style>
-
-
-
-
-<!--<my-widget>
-    <button class="btn btn-success btn-block"  ng-click="login()" ng-show="!widget">Login</button>
-        <button ng-show="!widget" onclick="location.href = '#/register'">Register</button>
-        <div id="okta-login-container"></div>
-</my-widget><br/>
-<button class="button button-primary" style="float:right; color:#004b75;"  ng-show="!widget" onclick="location.href = '#/register'">Register Now</button>-->
-
 <div id="okta-sign-in" class="auth-container main-container no-beacon">
             <div class="okta-sign-in-header auth-header"> <img src="images/LOGO.png" class="auth-org-logo">
                 <div data-type="beacon-container" class="beacon-container"></div>
@@ -46,7 +35,7 @@ body {
                     </div>
                 </div>
             </div>
-            <div class="auth-content">
+            <div class="auth-content" ng-show="widget">
                 <div class="auth-content-inner">
                     <div class="primary-auth">
                           <div class="auth-footer">
