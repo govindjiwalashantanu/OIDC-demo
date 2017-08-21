@@ -71,7 +71,13 @@ app.directive("myWidget",
 //renders registration view
 RegistrationController.$inject = ["$window", "$http", "$location", "$scope", "widgetManager", "ORG_URL", "API_KEY"];
 function RegistrationController ($window, $http, $location, $scope, widgetManager, ORG_URL, API_KEY){
-    $scope.createUser = function(){
+
+		$scope.returnToLogin = function(){
+			widgetManager.removeWidget();
+			$location.path("/login");
+		}
+
+		$scope.createUser = function(){
         //alert($scope.fname + $scope.lname + $scope.email + $scope.password);
         var req = {
          method: 'POST',
