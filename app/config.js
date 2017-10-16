@@ -53,7 +53,6 @@ angular
         authParams: {
             issuer : "https://shantanu.okta.com/oauth2/aus3ak3ftuFimxJCt1t7",
             authorizeUrl : "https://shantanu.okta.com/oauth2/aus3ak3ftuFimxJCt1t7/v1/authorize",
-            display : "popup",
             responseType: ["id_token", "token"],
             responseMode: "okta_post_message",
             scopes : [
